@@ -1,0 +1,30 @@
+<launch>
+    <!-- vesc code -->
+    <arg name="angle_offset" default="0" />
+    <include file="$(find vesc_driver)/launch/vesc_drive_ggbot_motor.launch" />
+
+    <!-- motor related code -->
+    <!-- <node name="motor_99bot_final" pkg="ggbot" type="motor_99bot_final.py" output="screen" >
+        <param name="angle_offset" value="$(arg angle_offset)" />
+
+    </node> -->
+
+
+
+    <!-- odom yaml file -->
+    <rosparam file="$(find vesc_driver)/yaml/vesc.yaml" />
+    <!-- odom node -->
+    <include file="$(find vesc_ackermann)/launch/vesc_to_odom_node.launch" />
+
+    <!-- lidar rqt -->
+    <include file="$(find rplidar_ros)/launch/view_rplidar.launch" />
+
+    <!-- move_base -->
+    <!-- <include file="$(find ggbot)/launch/move_base.launch" /> -->
+
+    <!-- cmd to ack -->
+    <node name="cmd_vel_to_ackermann_drive" pkg="ggbot" type="cmd_vel_to_ackermann_drive.py" output="screen" />
+    <!-- <node name="tf_publisher" pkg="robot_setup_tf" type="tf_broadcaster.cpp" output="screen" /> -->
+
+</launch>
+

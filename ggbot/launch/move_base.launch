@@ -1,0 +1,34 @@
+<launch>
+
+   <master auto="start"/>
+ <!-- Run the map server --> 
+    <arg name="model" default="ggbot"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find map)/threefloor_1.yaml"/>
+    <!-- transform -->
+    
+ <!--- Run AMCL --> 
+    <include file="$(find amcl)/examples/amcl_diff.launch" />
+
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
+    <rosparam file="$(find ggbot)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find ggbot)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ggbot)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ggbot)/param/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find ggbot)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find ggbot)/param/base_local_planner.yaml" command="load" />
+    <param name="controller_frequency" value="5.0" />
+   </node>
+
+
+
+   
+   <!-- <node name="static_tf0" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /base_link /raser_link 100"/> -->
+   <!-- odom_reset -->
+
+    <node pkg="ggbot" type="pub_odom_reset.py" name="pub_odom_reset" />
+
+    <include file="$(find ggbot)/launch/start_end.launch" />
+
+
+</launch>

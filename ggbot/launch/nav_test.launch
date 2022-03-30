@@ -1,0 +1,17 @@
+<launch>
+    <!-- vesc code -->
+    <arg name="angle_offset" default="0" />
+    <include file="$(find ggbot)/launch/move_base.launch" />
+    <include file="$(find ggbot)/launch/ggbot_motor.launch" />
+    <include file="$(find vesc_ackermann)/launch/vesc_to_odom_node.launch" />
+    <include file="$(find rplidar_ros)/launch/view_rplidar.launch" />
+    
+    <rosparam file="$(find vesc_driver)/yaml/vesc.yaml" />
+    
+     <node name="cmd_vel_to_ackermann_drive" pkg="ggbot" type="cmd_vel_to_ackermann_drive.py" output="screen" />
+     <!-- <node name="room_talker" pkg="ggbot" type="room_talker.py" output="screen" /> -->
+     <node name="room_listener" pkg="ggbot" type="room_listener.py" output="screen" />
+     
+
+</launch>
+

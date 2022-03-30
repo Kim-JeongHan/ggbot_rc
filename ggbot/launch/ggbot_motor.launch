@@ -1,0 +1,9 @@
+<launch>
+    <arg name="angle_offset" default="0" />
+    <include file="$(find vesc_driver)/launch/vesc_drive_ggbot_motor.launch" />
+    <node name="motor_99bot_final" pkg="ggbot" type="motor_99bot_final.py" output="screen" >
+        <param name="angle_offset" value="$(arg angle_offset)" />
+    </node>
+
+    <node name="pub_odom_reset" pkg="ggbot" type="pub_odom_reset.py" output="screen" />
+</launch>

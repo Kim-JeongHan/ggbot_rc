@@ -1,0 +1,15 @@
+<launch>
+    <!-- motor node -->
+    <include file="$(find ggbot)/launch/ggbot_motor.launch" />
+
+    <!-- odom yaml file -->
+    <rosparam file="$(find vesc_driver)/yaml/vesc.yaml" />
+    <!-- odom node -->
+    <include file="$(find vesc_ackermann)/launch/vesc_to_odom_node.launch" />
+
+    <!-- lidar rqt -->
+    <include file="$(find rplidar_ros)/launch/view_rplidar.launch" />
+    <!-- gmapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" />
+
+</launch>

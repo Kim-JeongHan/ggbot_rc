@@ -1,0 +1,10 @@
+<launch>
+    <!--arduino port-->
+    <node name="serial_node"        pkg="rosserial_python"      type="serial_node.py">
+        <param name="port"              type="string"               value="/dev/ttyARUDINO"/>
+        <param name="baud"              type="int"                  value="57600"/>
+    </node>
+    <!-- node name="" pkg="linear_arduino" type="" -->
+    <node pkg="linear_arduino_service" type="linear_service_sub" name="linear_arduino_service"  output="screen" />
+    <!-- output="screen" 옵션을 넣어주면 그 해당 노드에서는 터미널에서 출력이 된다 -->
+</launch>

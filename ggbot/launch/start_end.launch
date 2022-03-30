@@ -1,0 +1,9 @@
+<launch>
+    <node name="t_p" pkg="qr_code_reader_2" type="t_p.py" output="screen" />
+
+    <node name="room_listener" pkg="ggbot" type="room_listener.py" output="screen" />
+
+    <include file="$(find linear_arduino_service)/launch/linear_service.launch" />
+
+</launch>
+
